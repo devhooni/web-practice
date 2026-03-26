@@ -15,6 +15,7 @@ import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./routes/Detail.jsx";
 import axios from "axios";
 import Cart from "./routes/Cart.jsx";
+import Test from "./routes/test.jsx";
 
 export let Context1 = createContext();
 
@@ -135,6 +136,14 @@ function App() {
             <div>
               <Cart />
             </div>
+          }
+        />
+        <Route
+          path="/test"
+          element={
+            <>
+              <Test />
+            </>
           }
         />
       </Routes>

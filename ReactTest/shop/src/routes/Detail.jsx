@@ -31,6 +31,10 @@ function Detail(props) {
   //useEffect는 html렌더링 후에 동작합니다. 그래서 시간 소요가 오래 걸리는 연산은 여기에 ㄱㄱ
   // //1. 어려운 연산 2. 서버에서 데이터 가져오는 작업 3. 타이머 장착
   useEffect(() => {
+    if (input === "") {
+      setDisappear(true);
+      return;
+    }
     if (/[0-9]/.test(input)) {
       setDisappear(true);
       return;
