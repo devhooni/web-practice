@@ -2,3 +2,7 @@ html 모두 렌더링 후에 계산하고싶으면 UseEffect
 state 관리 한번에 하고 싶으면 Redux Toolkit
 서버와 통신하려면 ajax
 tanstack query로 ajax 요청 간편하게
+react developer tools
+redux developer tools 개꿀도구
+첫페이지 로딩속도 빠르게 할려면 lazy import
+재렌더링 막는 memo, usememo

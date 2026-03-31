@@ -1,0 +1,159 @@
+body {
+  margin: 0;
+}
+
+.container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+.firstPage,
+.aboutPage,
+.pfPage,
+.blogPage,
+.contactPage {
+  scroll-snap-align: start;
+}
+
+.firstPage {
+  background-color: #0084ff;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  align-items: center;
+}
+
+.btnBox {
+  margin: 100px;
+  width: 400px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.firstPage-btn {
+  background-color: #0084ff;
+  color: white;
+  border: none;
+  width: auto;
+  height: 100px;
+  font-size: 50px;
+  transition: all 0.3s;
+}
+
+.firstPage-btn:hover {
+  background-color: white;
+  color: black;
+  cursor: pointer;
+}
+
+.firstPage-text-box {
+  width: 800px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
+.firstPage-introE {
+  font-size: 120px;
+}
+
+.firstPage-introK {
+  font-size: 32px;
+  line-height: 64px;
+}
+
+.aboutPage {
+  background-color: #ffbb4e;
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.pfPage {
+  background-color: #ff8d60;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  align-items: center;
+}
+
+.blogPage {
+  background-color: #71cf61;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  align-items: center;
+}
+
+.contactPage {
+  background-color: #cd6cf4;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  align-items: center;
+}
+
+.contentWrapper {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contentBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 1200px;
+  height: 700px;
+}
+
+.contentCategoryBox {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+}
+
+.contentText {
+  width: 100%;
+  height: 700px;
+  border: solid white;
+  border-width: 0 4px 4px 4px;
+}
+
+.goBtn {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 40px;
+  transition: all 0.3s;
+}
+
+.clicked {
+  border: solid white;
+  border-width: 4px 4px 0 4px;
+}
+
+.noneclicked {
+  border: solid white;
+  border-width: 0 0 4px 0;
+}
+
+.goBtn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
