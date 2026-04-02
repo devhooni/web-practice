@@ -1,21 +1,20 @@
-import { useRef, createContext, useContext, useState } from "react";
+import { useRef, createContext, useContext, useState, useEffect } from "react";
 import "./App.css";
 
-/* 🔥 Context 생성 */
 const RefContext = createContext();
 
 function App() {
   const firstRef = useRef();
   const aboutRef = useRef();
+  const skillRef = useRef();
   const pfRef = useRef();
   const blogRef = useRef();
-  const contactRef = useRef();
 
   const refs = {
     aboutRef,
+    skillRef,
     pfRef,
     blogRef,
-    contactRef,
   };
 
   return (
@@ -23,15 +22,19 @@ function App() {
       <div className="container">
         <FirstPage
           aboutRef={aboutRef}
+          skillRef={skillRef}
           pfRef={pfRef}
           blogRef={blogRef}
-          contactRef={contactRef}
           refProp={firstRef}
         />
 
         <AboutPage refProp={aboutRef}>
           <AboutContent />
         </AboutPage>
+
+        <SkillPage refProp={skillRef}>
+          <SkillContent />
+        </SkillPage>
 
         <PfPage refProp={pfRef}>
           <PfContent />
@@ -40,17 +43,13 @@ function App() {
         <BlogPage refProp={blogRef}>
           <BlogContent />
         </BlogPage>
-
-        <ContactPage refProp={contactRef}>
-          <ContactContent />
-        </ContactPage>
       </div>
     </RefContext.Provider>
   );
 }
 
 /* ---------- First Page ---------- */
-function FirstPage({ aboutRef, pfRef, blogRef, contactRef, refProp }) {
+function FirstPage({ aboutRef, skillRef, pfRef, blogRef, refProp }) {
   return (
     <div className="firstPage" ref={refProp}>
       <div className="btnBox">
@@ -61,6 +60,12 @@ function FirstPage({ aboutRef, pfRef, blogRef, contactRef, refProp }) {
           about me
         </Btn>
         <Btn
+          onClick={() =>
+            skillRef.current.scrollIntoView({ behavior: "smooth" })
+          }>
+          skills
+        </Btn>
+        <Btn
           onClick={() => pfRef.current.scrollIntoView({ behavior: "smooth" })}>
           portfolios
         </Btn>
@@ -69,12 +74,6 @@ function FirstPage({ aboutRef, pfRef, blogRef, contactRef, refProp }) {
             blogRef.current.scrollIntoView({ behavior: "smooth" })
           }>
           blog
-        </Btn>
-        <Btn
-          onClick={() =>
-            contactRef.current.scrollIntoView({ behavior: "smooth" })
-          }>
-          contact me
         </Btn>
       </div>
 
@@ -117,6 +116,14 @@ function AboutPage({ refProp, children }) {
   );
 }
 
+function SkillPage({ refProp, children }) {
+  return (
+    <div className="skillPage" ref={refProp}>
+      {children}
+    </div>
+  );
+}
+
 function PfPage({ refProp, children }) {
   return (
     <div className="pfPage" ref={refProp}>
@@ -133,18 +140,10 @@ function BlogPage({ refProp, children }) {
   );
 }
 
-function ContactPage({ refProp, children }) {
-  return (
-    <div className="contactPage" ref={refProp}>
-      {children}
-    </div>
-  );
-}
-
 /* ---------- Content들 ---------- */
 
 function AboutContent() {
-  const { aboutRef, pfRef, blogRef, contactRef } = useContext(RefContext);
+  const { aboutRef, pfRef, blogRef, skillRef } = useContext(RefContext);
 
   return (
     <ContentLayout
@@ -152,13 +151,13 @@ function AboutContent() {
       aboutRef={aboutRef}
       pfRef={pfRef}
       blogRef={blogRef}
-      contactRef={contactRef}
+      skillRef={skillRef}
     />
   );
 }
 
 function PfContent() {
-  const { aboutRef, pfRef, blogRef, contactRef } = useContext(RefContext);
+  const { aboutRef, pfRef, blogRef, skillRef } = useContext(RefContext);
 
   return (
     <ContentLayout
@@ -166,13 +165,13 @@ function PfContent() {
       aboutRef={aboutRef}
       pfRef={pfRef}
       blogRef={blogRef}
-      contactRef={contactRef}
+      skillRef={skillRef}
     />
   );
 }
 
 function BlogContent() {
-  const { aboutRef, pfRef, blogRef, contactRef } = useContext(RefContext);
+  const { aboutRef, pfRef, blogRef, skillRef } = useContext(RefContext);
 
   return (
     <ContentLayout
@@ -180,39 +179,45 @@ function BlogContent() {
       aboutRef={aboutRef}
       pfRef={pfRef}
       blogRef={blogRef}
-      contactRef={contactRef}
+      skillRef={skillRef}
     />
   );
 }
 
-function ContactContent() {
-  const { aboutRef, pfRef, blogRef, contactRef } = useContext(RefContext);
+function SkillContent() {
+  const { aboutRef, pfRef, blogRef, skillRef } = useContext(RefContext);
 
   return (
     <ContentLayout
-      active="contactRef"
+      active="skillRef"
       aboutRef={aboutRef}
       pfRef={pfRef}
       blogRef={blogRef}
-      contactRef={contactRef}
+      skillRef={skillRef}
     />
   );
 }
 
 /* ---------- 공통 Content ---------- */
-function ContentLayout({ active, aboutRef, pfRef, blogRef, contactRef }) {
+function ContentLayout({ active, aboutRef, pfRef, blogRef, skillRef }) {
   const [shake, setShake] = useState(false);
 
   const handleClick = (ref, key) => {
     if (active === key) {
-      // 🔥 같은 페이지 → 흔들기
       setShake(true);
       setTimeout(() => setShake(false), 400);
     } else {
-      // 🔥 다른 페이지 → 이동만
       ref.current.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const contentMap = {
+    aboutRef: <AboutDetail />,
+    skillRef: <SkillDetail />,
+    pfRef: <PfDetail />,
+    blogRef: <BlogDetail />,
+  };
+
   return (
     <div className="contentWrapper">
       <div className={`contentBox ${shake ? "shake" : ""}`}>
@@ -221,6 +226,12 @@ function ContentLayout({ active, aboutRef, pfRef, blogRef, contactRef }) {
             className={`goBtn ${active === "aboutRef" ? "clicked" : "noneclicked"}`}
             onClick={() => handleClick(aboutRef, "aboutRef")}>
             about me
+          </div>
+
+          <div
+            className={`goBtn ${active === "skillRef" ? "clicked" : "noneclicked"}`}
+            onClick={() => handleClick(skillRef, "skillRef")}>
+            skills
           </div>
 
           <div
@@ -234,18 +245,77 @@ function ContentLayout({ active, aboutRef, pfRef, blogRef, contactRef }) {
             onClick={() => handleClick(blogRef, "blogRef")}>
             blog
           </div>
-
-          <div
-            className={`goBtn ${active === "contactRef" ? "clicked" : "noneclicked"}`}
-            onClick={() => handleClick(contactRef, "contactRef")}>
-            contact
-          </div>
         </div>
-
-        <div className="contentText"></div>
+        <div className="contentText">{contentMap[active]}</div>
       </div>
     </div>
   );
+}
+
+function AboutDetail() {
+  return (
+    <>
+      <div className="about-left">
+        <img src="avatar.svg" style={{ width: "240px", marginLeft: "20px" }} />
+        <p style={{ fontSize: "40px", marginTop: "20px" }}>OH JI HUN 오지훈</p>
+        <p style={{ fontSize: "24px" }}>Hongik University, Seoul</p>
+        <div className="linkbox1">
+          <div className="linkbox2">
+            <img src="github.svg" style={{ width: "40px" }} />
+            <p style={{ fontSize: "32px" }}>@devhooni</p>
+          </div>
+          <img src="link.svg" style={{ width: "40px" }} />
+        </div>
+        <div className="linkbox3">
+          <div className="linkbox2">
+            <img src="email.svg" style={{ width: "40px" }} />
+            <p style={{ fontSize: "32px" }}>mail@mail.com</p>
+          </div>
+          <img src="link.svg" style={{ width: "40px" }} />
+        </div>
+      </div>
+      <div className="about-right">
+        <div className="about-box">
+          <div className="about-title">안녕하세요, 개발자 오지훈입니다 😎</div>
+          <div className="about-text">
+            현재 홍익대학교에 재학중이며, 프론트엔드 개발을 공부하고 있습니다.
+            <br /> IT, 사회, 경제에 관심이 있고 혼자서 생각하는 것을 좋아합니다.
+          </div>
+        </div>
+        <div className="about-box">
+          <div className="about-title">Skills</div>
+          <div className="about-text">html js react</div>
+        </div>
+        <div className="about-box">
+          <div className="about-title">목표/공부 방향</div>
+          <div className="about-text">
+            현재 React 심화와 Typescript, Next.js를 학습중입니다.
+            <br /> 향후 백엔드와 AI도 학습하여 풀스택 개발자가 되는 것이
+            목표입니다.
+          </div>
+        </div>
+        <div className="about-box">
+          <div className="about-title">Timelines</div>
+          <div className="about-text">
+            KDMHS WP (2023.03~2026.01)
+            <br /> Deplois, inc. (2026.03~)
+            <br /> Hongik University (2026.03~)
+            <br /> GDG on Campus Hongik University (2026.03~)
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function SkillDetail() {
+  return <></>;
+}
+function PfDetail() {
+  return <></>;
+}
+function BlogDetail() {
+  return <></>;
 }
 
 export default App;

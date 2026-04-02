@@ -1,4 +1,6 @@
-body {
+body,
+p,
+div {
   margin: 0;
 }
 
@@ -16,7 +18,7 @@ div {
 .aboutPage,
 .pfPage,
 .blogPage,
-.contactPage {
+.skillPage {
   scroll-snap-align: start;
 }
 
@@ -94,7 +96,7 @@ div {
   align-items: center;
 }
 
-.contactPage {
+.skillPage {
   background-color: #cd6cf4;
   display: flex;
   flex-direction: row;
@@ -129,7 +131,10 @@ div {
   width: 100%;
   height: 700px;
   border: solid white;
+  background-color: white;
   border-width: 0 4px 4px 4px;
+  display: flex;
+  flex-direction: row;
 }
 
 .goBtn {
@@ -144,8 +149,8 @@ div {
 }
 
 .clicked {
-  border: solid white;
-  border-width: 4px 4px 0 4px;
+  background: white;
+  color: black;
 }
 
 .noneclicked {
@@ -153,7 +158,12 @@ div {
   border-width: 0 0 4px 0;
 }
 
-.goBtn:hover {
+.clicked:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+}
+
+.noneclicked:hover {
   background-color: rgba(255, 255, 255, 0.2);
   cursor: pointer;
 }
@@ -178,4 +188,76 @@ div {
 
 .shake {
   animation: shakeX 0.4s ease;
+}
+
+.about-left {
+  padding-top: 20px;
+  padding-left: 40px;
+  width: 400px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-right {
+  width: 800px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.linkbox1 {
+  margin-top: 32px;
+  width: 250px;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.linkbox1:hover {
+  width: 260px;
+  cursor: pointer;
+}
+
+.linkbox2 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.linkbox3 {
+  margin-top: 32px;
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.linkbox3:hover {
+  width: 310px;
+  cursor: pointer;
+}
+
+.about-box {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-title {
+  width: 100%;
+  font-size: 28px;
+  margin-top: 32px;
+}
+
+.about-text {
+  width: 100%;
+  font-size: 20px;
+  margin-top: 10px;
 }
